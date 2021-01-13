@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<style>
+.bodycontainer{
+margin-left: 10px;
+padding-right:10px;
+width: 500px;
+}
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #C9E5FF;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #2874E4;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #2874E4;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+<div class="bodycontainer">
+    <center><h3>Select number of months</h3></center><br>
+    <div class="slidecontainer">
+      <input type="range" min="3" max="100" value="12" class="slider" id="myRange">
+      <br>
+      <center><button type="button" class="btn btn-primary" id="submit" onclick="submit()"><p>Months: <span id="demo"></span></p></button></center>
+    </div>
+</div>
+
+<script>
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+function submit(){
+    document.getElementById("submit").disabled = true
+    document.getElementById("myRange").disabled = true
+    window.parent.postMessage(
+        JSON.stringify({
+            event_code: "ym-client-event",
+            data: JSON.stringify({
+                event: {
+                    code: "data",
+                    data: {
+                        value: output.value
+                    },
+                },
+            }),
+        }),
+        "*"
+    );
+}
+</script>
+
+</body>
+</html>
