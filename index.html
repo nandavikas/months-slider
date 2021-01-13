@@ -68,6 +68,7 @@ slider.oninput = function() {
 }
 
 function submit(){
+    const output = document.getElementById("demo");
     document.getElementById("submit").disabled = true
     document.getElementById("myRange").disabled = true
     window.parent.postMessage(
